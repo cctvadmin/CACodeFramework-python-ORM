@@ -4,7 +4,7 @@ from CACodeFramework.util.Log import CACodeLog
 from dbutils.pooled_db import PooledDB
 import pymysql
 
-from CACodeFramework.MainWork.exception import e_except
+from CACodeFramework.exception import e_except
 from CACodeFramework.field import e_fields
 
 

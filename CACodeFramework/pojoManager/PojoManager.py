@@ -1,10 +1,11 @@
 from CACodeFramework.MainWork.CACodePureORM import CACodePureORM
-from CACodeFramework.field import field_tag
+from CACodeFramework.pojoManager import tag
 from CACodeFramework.util import JsonUtil
 from CACodeFramework.MainWork import CACodeRepository
+from abc import ABCMeta, abstractmethod
 
 
-class POJO(CACodeRepository.Repository):
+class pojo(CACodeRepository.Repository):
     def __init__(self, config_obj=None, log_conf=None, close_log=False, **kwargs):
         """
         初始化ORM框架
@@ -14,7 +15,7 @@ class POJO(CACodeRepository.Repository):
         self.fields = self.init_fields()
         for key, value in kwargs.items():
             self.__setattr__(key, value)
-        super(POJO, self).__init__(config_obj=config_obj,
+        super(pojo, self).__init__(config_obj=config_obj,
                                    participants=self,
                                    log_conf=log_conf,
                                    close_log=close_log)
@@ -29,7 +30,7 @@ class POJO(CACodeRepository.Repository):
             # 取出这个值引用对象的父类
             try:
                 t_v = value.__class__.__bases__
-                t_bf = field_tag.baseTag
+                t_bf = tag.baseTag
                 if t_v[0] == t_bf:
                     fds[key] = value
             except SyntaxError:
@@ -56,8 +57,8 @@ class POJO(CACodeRepository.Repository):
         """
         try:
             t_v = val.__class__.__bases__
-            t_bf = field_tag.baseTag
-            return t_v[0] == t_bf
+            t_bf = tag.baseTag
+            return t_v[len(t_v) - 1] == t_bf
         except SyntaxError:
             return False
 
@@ -69,56 +70,13 @@ class POJO(CACodeRepository.Repository):
         return CACodePureORM(self)
 
 
-class tinyintField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(tinyintField, self).__init__(**kwargs)
+class Operation(metaclass=ABCMeta):
+    def __int__(self):
+        pass
 
+    @abstractmethod
+    def meta(self):
+        pass
 
-class intField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(intField, self).__init__(**kwargs)
-
-
-class bigintField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(bigintField, self).__init__(**kwargs)
-
-
-class floatField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(floatField, self).__init__(**kwargs)
-
-
-class doubleField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(doubleField, self).__init__(**kwargs)
-
-
-class datetimeField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(datetimeField, self).__init__(**kwargs)
-
-
-class charField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(charField, self).__init__(**kwargs)
-
-
-class varcharField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(varcharField, self).__init__(**kwargs)
-
-
-class textField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(textField, self).__init__(**kwargs)
-
-
-class tinytextField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(tinytextField, self).__init__(**kwargs)
-
-
-class longtextField(field_tag.baseTag):
-    def __init__(self, **kwargs):
-        super(longtextField, self).__init__(**kwargs)
+    def run(self):
+        self.run_operation()

@@ -1,7 +1,7 @@
 import copy
 import sys
 
-from CACodeFramework.MainWork.exception import e_except
+from CACodeFramework.exception import e_except
 from CACodeFramework.field import e_fields
 from CACodeFramework.util.ParseUtil import ParseUtil
 

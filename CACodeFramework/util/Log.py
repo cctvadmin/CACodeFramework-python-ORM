@@ -2,7 +2,7 @@ import os
 import sys
 import time
 
-from CACodeFramework.MainWork.exception import e_except
+from CACodeFramework.exception import e_except
 from CACodeFramework.field import e_fields
 
 
