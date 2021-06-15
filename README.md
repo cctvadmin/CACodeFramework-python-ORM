@@ -1,5 +1,5 @@
 # 适用于 Python 语言所有web架构 的 ORM( Object-Relational-Mapping ) 框架
-
+# github已停止更新，请前往：[https://gitee.com/cacode_cctvadmin/aestate](https://gitee.com/cacode_cctvadmin/aestate)
 # 安装
 
     pip命令：pip install CACodeFramework
